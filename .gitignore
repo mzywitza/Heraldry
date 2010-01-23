@@ -1,5 +1,4 @@
-
-#ignore thumbnails created by windows
+﻿#ignore thumbnails created by windows
 Thumbs.db
 #Ignore files build by Visual Studio
 *.obj
@@ -27,3 +26,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+# Exceptions
+!tools/NUnit/bin/
+!tools/NUnit/bin/*.exe
