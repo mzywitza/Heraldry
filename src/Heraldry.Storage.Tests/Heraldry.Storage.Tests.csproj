@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus, Version=2.0.0.963, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NServiceBus.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
@@ -53,6 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Heraldry.Messages\Heraldry.Messages.csproj">
+      <Project>{F22EDF27-63CE-4F64-ACDC-EBD1613696E6}</Project>
+      <Name>Heraldry.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Heraldry.Storage\Heraldry.Storage.csproj">
       <Project>{32AD7A4C-655D-49B7-91D5-534029C0DE23}</Project>
       <Name>Heraldry.Storage</Name>

@@ -2,6 +2,8 @@ using System;
 
 namespace Heraldry.Storage
 {
+	using Messages;
+
 	/// <summary>
 	/// Stores a message in a database
 	/// </summary>
@@ -12,43 +14,41 @@ namespace Heraldry.Storage
 		private DateTime _created;
 
 		/// <summary>
-		/// Default constructor
+		/// Default constructor for ORM-use only.
 		/// </summary>
-		public Message()
+		protected Message()
 		{
 		}
 
 		/// <summary>
-		/// Constructs a message with the given content
+		/// Creates a Message from a given rawMessage, setting the
+		/// <see cref="Published"/> property to the actual time.
 		/// </summary>
-		/// <param name="content">The message's content</param>
-		public Message(string content)
+		/// <param name="rawMessage">
+		/// The raw message to construct the message from.
+		/// </param>
+		public Message(IRawMessage rawMessage) :this(rawMessage,DateTime.Now)
 		{
-			_content = content;
 		}
 
 		/// <summary>
-		/// Constructs a message with a given content and publishing
-		/// date.
+		/// Creates a Message from a given rawMessage and publishing time.
 		/// </summary>
-		/// <param name="content">The content of the message</param>
-		/// <param name="published">The time when the message is published</param>
-		public Message(string content, DateTime published) : this(content)
+		/// <param name="rawMessage">
+		/// The raw message to construct the message from.
+		/// </param>
+		/// <param name="publishTime">The time of publishing</param>
+		public Message(IRawMessage rawMessage, DateTime publishTime)
 		{
-			_published = published;
+			if (publishTime < rawMessage.CreatedAt)
+			{
+				throw new ArgumentException("publishTime must not be older than the time of creating the message.", "publishTime");
+			}
+			_content = rawMessage.Content;
+			_created = rawMessage.CreatedAt;
+			_published = publishTime;
 		}
 
-		/// <summary>
-		/// Constructs a message with a given content and publishing
-		/// date.
-		/// </summary>
-		/// <param name="content">The content of the message</param>
-		/// <param name="published">The time when the message is published</param>	
-		/// <param name="created">The time when the message was created</param>
-		public Message(string content, DateTime published, DateTime created) : this(content, published)
-		{
-			_created = created;
-		}
 
 		/// <summary>
 		/// The full content of the string
